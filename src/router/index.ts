@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import { moduleRequestsPending } from '@/store/modules/ModuleRequestsPending';
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,12 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+// todo seems not working properly
+router.beforeEach((_, __, next) => {
+  moduleRequestsPending.cancelPendingRequests();
+  next();
 });
 
 export default router;

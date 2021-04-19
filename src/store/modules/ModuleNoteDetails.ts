@@ -28,8 +28,8 @@ class ModuleNoteDetails extends VuexModule implements INoteDetailsState {
       const { data: noteDetails } = await getNote(id);
       return { noteDetails };
     } catch (e) {
-      console.error(e);
       // todo do an error handling
+      console.error(e);
     }
   }
 
