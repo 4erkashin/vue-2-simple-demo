@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import { moduleRequestsPending } from '@/store/modules/ModuleRequestsPending';
+import { moduleRequestsCancellation } from '@/store/modules/ModuleRequestsСancellation';
 
 Vue.use(VueRouter);
 
@@ -34,7 +34,7 @@ const router = new VueRouter({
 
 // todo seems not working properly
 router.beforeEach((_, __, next) => {
-  moduleRequestsPending.cancelPendingRequests();
+  moduleRequestsCancellation.cancelPendingRequests();
   next();
 });
 

@@ -1,9 +1,9 @@
 import {
   Action,
-  getModule,
   Module,
   Mutation,
   VuexModule,
+  getModule,
 } from 'vuex-module-decorators';
 
 import store from '@/store';
@@ -14,7 +14,7 @@ export interface IRequestsPendingState {
 }
 
 @Module({ store, dynamic: true, name: 'requestsPending' })
-class ModuleRequestsPending
+class ModuleRequestsCancellation
   extends VuexModule
   implements IRequestsPendingState {
   public requestCancelTokens: IRequestsPendingState['requestCancelTokens'] = [];
@@ -44,4 +44,4 @@ class ModuleRequestsPending
   }
 }
 
-export const moduleRequestsPending = getModule(ModuleRequestsPending);
+export const moduleRequestsCancellation = getModule(ModuleRequestsCancellation);

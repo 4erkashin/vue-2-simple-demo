@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { INotesState } from '@/store/modules/ModuleNotes';
-import { INoteDetailsState } from '@/store/modules/ModuleNoteDetails';
-import { IRequestsPendingState } from '@/store/modules/ModuleRequestsPending';
+import type { INotesState } from '@/store/modules/ModuleNotes';
+import type { INoteDetailsState } from '@/store/modules/ModuleNoteDetails';
+import type { IRequestsPendingState } from '@/store/modules/ModuleRequestsСancellation';
 
 Vue.use(Vuex);
 

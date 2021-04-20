@@ -1,13 +1,13 @@
 import {
-  getModule,
   Module,
   MutationAction,
   VuexModule,
+  getModule,
 } from 'vuex-module-decorators';
 
 import store from '@/store';
-import { INote } from '@/services/serviceNotes/types';
 import { getNote } from '@/services/serviceNotes';
+import type { INote } from '@/services/serviceNotes/types';
 
 export interface INoteDetailsState {
   noteDetails: INote | null;
@@ -22,13 +22,15 @@ class ModuleNoteDetails extends VuexModule implements INoteDetailsState {
   }
 
   @MutationAction
-  public async fetchNote(id: INote['id']) {
+  public async getNote(id: INote['id']) {
     try {
+      // stub to imitate request delay
       await new Promise((resolve) => setTimeout(resolve, 1500));
+
       const { data: noteDetails } = await getNote(id);
       return { noteDetails };
     } catch (e) {
-      // todo do an error handling
+      // todo a better an error handling
       console.error(e);
     }
   }

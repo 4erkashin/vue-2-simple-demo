@@ -6,6 +6,6 @@ export function getNotes(): Promise<AxiosResponse<INote[]>> {
   return httpClient.get<INote[]>('/user/1/posts/');
 }
 
-export function getNote(id: INote['id']) {
+export function getNote(id: INote['id']): Promise<AxiosResponse<INote>> {
   return httpClient.get<INote>(`/posts/${id}`);
 }

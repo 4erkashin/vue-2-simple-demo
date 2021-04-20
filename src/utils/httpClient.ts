@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { moduleRequestsPending } from '@/store/modules/ModuleRequestsPending';
+import { moduleRequestsCancellation } from '@/store/modules/ModuleRequestsСancellation';
 
 const httpClient = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -8,7 +8,7 @@ const httpClient = axios.create({
 httpClient.interceptors.request.use(
   (config) => {
     const cancelSource = axios.CancelToken.source();
-    moduleRequestsPending.addCancelToken(cancelSource);
+    moduleRequestsCancellation.addCancelToken(cancelSource);
 
     config.cancelToken = cancelSource.token;
     return config;

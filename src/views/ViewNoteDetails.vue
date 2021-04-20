@@ -1,26 +1,19 @@
 <template>
-  <v-row justify="center">
-    <v-col cols="12" sm="6">
-      <template v-if="isNoteDetailsLoaded">
-        <v-card class="pa-2" outlined>
-          <v-card-title>
-            #{{ noteDetails.id }} {{ noteDetails.title }}
-          </v-card-title>
+  <layout-view>
+    <note-item
+      v-if="isNoteDetailsLoaded"
+      :text="noteDetails.body"
+      :title="`#${noteDetails.id} ${noteDetails.title}`"
+      class="pa-2"
+    >
+      <template #subtitle> UserID: {{ noteDetails.userId }} </template>
 
-          <v-card-subtitle> UserID: {{ noteDetails.userId }} </v-card-subtitle>
-
-          <v-card-text>
-            {{ noteDetails.body }}
-          </v-card-text>
-
-          <v-card-actions>
-            <v-btn :to="{ name: 'ViewNotesList' }" exact> Back to list </v-btn>
-          </v-card-actions>
-        </v-card>
+      <template #actions>
+        <v-btn :to="{ name: 'ViewNotesList' }" exact> Back to list </v-btn>
       </template>
-      <v-skeleton-loader v-else type="card, actions" />
-    </v-col>
-  </v-row>
+    </note-item>
+    <v-skeleton-loader v-else type="card, actions" />
+  </layout-view>
 </template>
 
 <script lang="ts">
@@ -29,12 +22,21 @@ import {
   INoteDetailsState,
   moduleNoteDetails,
 } from '@/store/modules/ModuleNoteDetails';
-import { INote } from '@/services/serviceNotes/types';
-import { NavigationGuardNext, Route } from 'vue-router/types/router';
+
+import type { INote } from '@/services/serviceNotes/types';
+import type { NavigationGuardNext, Route } from 'vue-router/types/router';
+
+import LayoutView from '@/layout/LayoutView.vue';
+import NoteItem from '@/components/NoteItem.vue';
 
 Component.registerHooks(['beforeRouteLeave']);
 
-@Component
+@Component({
+  components: {
+    LayoutView,
+    NoteItem,
+  },
+})
 export default class ViewNotesList extends Vue {
   @Prop({
     required: true,
@@ -43,7 +45,7 @@ export default class ViewNotesList extends Vue {
   noteId!: INote['id'];
 
   async mounted() {
-    await moduleNoteDetails.fetchNote(this.noteId);
+    await moduleNoteDetails.getNote(this.noteId);
   }
 
   get isNoteDetailsLoaded(): boolean {
